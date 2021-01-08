@@ -9,7 +9,7 @@ using ProjectSales.Data;
 namespace ProjectSales.Migrations
 {
     [DbContext(typeof(ProjectSalesContext))]
-    [Migration("20210108160341_OtherEntities")]
+    [Migration("20210108172520_OtherEntities")]
     partial class OtherEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,7 @@ namespace ProjectSales.Migrations
 
                     b.HasIndex("SellerId");
 
-                    b.ToTable("SalesRecords");
+                    b.ToTable("SalesRecord");
                 });
 
             modelBuilder.Entity("ProjectSales.Models.Seller", b =>

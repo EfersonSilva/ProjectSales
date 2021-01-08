@@ -46,7 +46,7 @@ namespace ProjectSales.Migrations
 
                     b.HasIndex("SellerId");
 
-                    b.ToTable("SalesRecords");
+                    b.ToTable("SalesRecord");
                 });
 
             modelBuilder.Entity("ProjectSales.Models.Seller", b =>
