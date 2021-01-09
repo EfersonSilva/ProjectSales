@@ -9,8 +9,8 @@ using ProjectSales.Data;
 namespace ProjectSales.Migrations
 {
     [DbContext(typeof(ProjectSalesContext))]
-    [Migration("20210108172520_OtherEntities")]
-    partial class OtherEntities
+    [Migration("20210109041954_Other")]
+    partial class Other
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,8 @@ namespace ProjectSales.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<double>("BaseSalary");
+
                     b.Property<DateTime>("BirthDate");
 
                     b.Property<int?>("DepartmentId");
@@ -63,8 +65,6 @@ namespace ProjectSales.Migrations
                     b.Property<string>("Email");
 
                     b.Property<string>("Name");
-
-                    b.Property<double>("Salary");
 
                     b.HasKey("Id");
 

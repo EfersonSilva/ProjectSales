@@ -54,6 +54,8 @@ namespace ProjectSales.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<double>("BaseSalary");
+
                     b.Property<DateTime>("BirthDate");
 
                     b.Property<int?>("DepartmentId");
@@ -61,8 +63,6 @@ namespace ProjectSales.Migrations
                     b.Property<string>("Email");
 
                     b.Property<string>("Name");
-
-                    b.Property<double>("Salary");
 
                     b.HasKey("Id");
 
