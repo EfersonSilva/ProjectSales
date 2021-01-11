@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ProjectSales.Models.Enums;
+using System.Collections.Generic;
 
 namespace ProjectSales.Models
 {
@@ -6,6 +7,5 @@ namespace ProjectSales.Models
     {
         public Seller Seller { get; set; }
         public ICollection<Department> Departments { get; set; }
-
     }
 }

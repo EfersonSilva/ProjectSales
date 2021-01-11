@@ -12,7 +12,7 @@ namespace ProjectSales.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToRoute(new { Controller = "SalesRecords", Action = "Create" });
         }
 
         public IActionResult About()

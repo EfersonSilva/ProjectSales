@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProjectSales.Services.Exceptions;
 
 namespace ProjectSales.Services
 {
@@ -15,6 +16,23 @@ namespace ProjectSales.Services
         {
             _context = context;
         }
+
+
+        public async Task InsertAsync(SalesRecord obj)
+        {
+            _context.Add(obj);
+           await _context.SaveChangesAsync();
+        }
+
+        public async Task<SalesRecord> FindByIdAsync(int id)
+        {
+            return await _context.SalesRecord.Include(obj => obj.Seller).FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+        public List<Seller> FindAllSellers()
+        {
+            return  _context.Seller.ToList();
+        }
+
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var resut = from obj in _context.SalesRecord select obj;
@@ -33,6 +51,8 @@ namespace ProjectSales.Services
                 .OrderByDescending(x => x.Date)
                 .ToListAsync();
         }
+
+
         public async Task<List<IGrouping<Department, SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
         {
             var resut = from obj in _context.SalesRecord select obj;
@@ -51,6 +71,39 @@ namespace ProjectSales.Services
                 .OrderByDescending(x => x.Date)
                 .GroupBy(x => x.Seller.Department)
                 .ToListAsync();
+        }
+
+        public async Task UpdateAsync(SalesRecord obj)
+        {
+            bool hasAny = await _context.SalesRecord.AnyAsync(x => x.Id == obj.Id);
+
+            if (!hasAny)
+                throw new NotFoundException("Id Not Found");
+
+            try
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            try
+            {
+                var obj = await _context.SalesRecord.FindAsync(id);
+                _context.SalesRecord.Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("Can't delete seller because he/she has sales");
+            }
         }
     }
 }

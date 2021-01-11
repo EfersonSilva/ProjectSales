@@ -1,0 +1,48 @@
+﻿@model ProjectSales.Models.SalesRecordViewModel
+
+
+
+@{
+    ViewData["Title"] = "Register Sales";
+   
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Sales</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="SalesRecord.Date" class="control-label"></label>
+                <input asp-for="SalesRecord.Date" class="form-control" />
+                <span asp-validation-for="SalesRecord.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalesRecord.Seller.Name" class="control-label"></label>
+                <select asp-for="SalesRecord.SellerId" asp-items="@(new SelectList(Model.Sellers,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalesRecord.Amount" class="control-label"></label>
+                <input asp-for="SalesRecord.Amount" class="form-control" />
+                <span asp-validation-for="SalesRecord.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalesRecord.Status" class="control-label"></label>
+                <select asp-for="SalesRecord.Status" asp-items="@(new SelectList(Enum.GetValues(typeof(ProjectSales.Models.Enums.SaleStatus))))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

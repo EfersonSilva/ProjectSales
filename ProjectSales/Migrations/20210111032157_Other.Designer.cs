@@ -9,7 +9,7 @@ using ProjectSales.Data;
 namespace ProjectSales.Migrations
 {
     [DbContext(typeof(ProjectSalesContext))]
-    [Migration("20210109041954_Other")]
+    [Migration("20210111032157_Other")]
     partial class Other
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,11 +60,14 @@ namespace ProjectSales.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<int?>("DepartmentId");
+                    b.Property<int>("DepartmentId");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.HasKey("Id");
 
@@ -84,7 +87,8 @@ namespace ProjectSales.Migrations
                 {
                     b.HasOne("ProjectSales.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

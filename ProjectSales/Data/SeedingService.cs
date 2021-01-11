@@ -18,7 +18,7 @@ namespace ProjectSales.Data
 
         public void Seed()
         {
-            if (_context.Department.Any() || _context.Seller.Any() || _context.Seller.Any())
+            if (_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
                 return; //DB ja foi populado
 
             Department d1 = new Department(1, "Computers");
